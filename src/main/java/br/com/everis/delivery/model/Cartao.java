@@ -1,5 +1,7 @@
 package br.com.everis.delivery.model;
 
+import java.util.Optional;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +12,7 @@ import javax.persistence.Id;
 @Entity
 public class Cartao {
 	
+	
 	@Id
     @GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
@@ -19,6 +22,16 @@ public class Cartao {
 	private TipoCartao tipoCartao;
 	
 	
+	
+	public Cartao() {
+		super();
+	}
+	public Cartao(Optional<Cartao> cartao) {
+		this.id = cartao.get().getId();
+		this.numeroCartao = cartao.get().getNumeroCartao();
+		this.cvv = cartao.get().getCvv();
+		this.tipoCartao = cartao.get().getTipoCartao();
+	}
 	public String getNumeroCartao() {
 		return numeroCartao;
 	}
@@ -38,4 +51,16 @@ public class Cartao {
 		this.tipoCartao = tipoCartao;
 	}
 
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Cartao atualiza(Cartao cart) {
+		cart.setNumeroCartao(numeroCartao);
+		cart.setCvv(cvv);
+		cart.setTipoCartao(tipoCartao);
+		return cart;
+	}
 }

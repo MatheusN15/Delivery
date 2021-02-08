@@ -25,9 +25,23 @@ public class Cliente {
 	private Endereco endereco;
 	private String email;
 	private String senha;
-	@OneToOne( cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Cartao cartao;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	private Carrinho carrinho;
 	
+
+
+	public Carrinho getCarrinho() {
+		return carrinho;
+	}
+
+
+
+	public void setCarrinho(Carrinho carrinho) {
+		this.carrinho = carrinho;
+	}
+
 
 
 	public Cliente() {
@@ -55,6 +69,7 @@ public class Cliente {
 		this.email = clienteOp.get().getEmail();
 		this.senha = clienteOp.get().getSenha();
 		this.cartao = clienteOp.get().getCartao();
+		this.carrinho = clienteOp.get().getCarrinho();
 	}
 
 	public Long getId() {

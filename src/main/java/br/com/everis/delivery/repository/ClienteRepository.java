@@ -7,5 +7,4 @@ import br.com.everis.delivery.model.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 
 	Cliente findByEmail(String email);
-
 }

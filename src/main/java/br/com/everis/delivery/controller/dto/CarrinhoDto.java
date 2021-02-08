@@ -2,34 +2,40 @@ package br.com.everis.delivery.controller.dto;
 
 import java.util.List;
 
-import br.com.everis.delivery.model.Cliente;
 import br.com.everis.delivery.model.Produto;
 
 public class CarrinhoDto {
 	
-	private List<Long> produtos;
-	private Double total;
-	private Cliente cliente;
 	private Long id;
-	private List<Produto> produtos2;
+	private List<Long> idProdutos;
+	private Double total = 00.00;
+	private List<Produto> produtos;
+	private Long idItem;
 	
-	public Cliente getCliente() {
-		return cliente;
+	
+	public Long getIdItem() {
+		return idItem;
 	}
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+
+	public void setIdItem(Long idItem) {
+		this.idItem = idItem;
 	}
+
+	public CarrinhoDto() {
+		super();
+	}
+	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public List<Long> getProdutos() {
-		return produtos;
+	public List<Long> getIdProdutos() {
+		return idProdutos;
 	}
-	public void setProdutos(List<Long> produtos) {
-		this.produtos = produtos;
+	public void setIdProdutos(List<Long> idProdutos) {
+		this.idProdutos = idProdutos;
 	}
 	public Double getTotal() {
 		return total;
@@ -37,12 +43,12 @@ public class CarrinhoDto {
 	public void setTotal(Double total) {
 		this.total = total;
 	}
-	public List<Produto> getProdutos2() {
-		return produtos2;
+	public List<Produto> getProdutos() {
+		return produtos;
 	}
-	public void setProdutos2(List<Produto> produtos2) {
-		this.produtos2 = produtos2;
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
-
+	
 	
 }

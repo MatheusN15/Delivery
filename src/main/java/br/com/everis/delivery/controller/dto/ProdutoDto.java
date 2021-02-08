@@ -60,6 +60,13 @@ public class ProdutoDto {
 	public Produto converter() {
 		return new Produto(id, nome, tipo, preco);
 	}
+
+	public Produto atualiza(Produto prod) {
+		prod.setNome(nome);
+		prod.setPreco(preco);
+		prod.setTipo(tipo);
+		return prod;
+	}
 	
 	
 	

@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import com.sun.istack.NotNull;
 
+import br.com.everis.delivery.model.Carrinho;
 import br.com.everis.delivery.model.Cartao;
 import br.com.everis.delivery.model.Cliente;
 import br.com.everis.delivery.model.Endereco;
@@ -24,7 +25,20 @@ public class ClienteDto {
 	@NotNull
 	private String senha;
 	private Cartao cartao;
+	private Carrinho carrinho;
 	
+	public Carrinho getCarrinho() {
+		return carrinho;
+	}
+
+
+
+	public void setCarrinho(Carrinho carrinho) {
+		this.carrinho = carrinho;
+	}
+
+
+
 	public ClienteDto(Cliente cliente){
 		this.id = cliente.getId();
 		this.nome = cliente.getNome();
