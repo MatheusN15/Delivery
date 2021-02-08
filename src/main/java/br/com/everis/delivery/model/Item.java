@@ -11,7 +11,7 @@ public class Item {
 	@Id
     @GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
-
+	
 	private Long idProduto;
 	
 	private String nome;
@@ -20,12 +20,23 @@ public class Item {
 	
 	private Double preco;
 
+	public Item() {
+		super();
+	}
+
 	public Item(Produto produto) {
 		this.idProduto = produto.getId();
 		this.nome = produto.getNome();
-		this.preco = produto.getPreco();
 		this.tipo = produto.getTipo();
-		
+		this.preco = produto.getPreco();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Long getIdProduto() {
@@ -34,18 +45,6 @@ public class Item {
 
 	public void setIdProduto(Long idProduto) {
 		this.idProduto = idProduto;
-	}
-
-	public Item() {
-		super();
-	}
-
-	public Item(Item item) {
-		this.idProduto = item.getId();
-		this.idProduto = item.getIdProduto();
-		this.nome = item.getNome();
-		this.preco = item.getPreco();
-		this.tipo = item.getTipo();
 	}
 
 	public String getNome() {
@@ -72,11 +71,5 @@ public class Item {
 		this.preco = preco;
 	}
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 }

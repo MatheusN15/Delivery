@@ -10,14 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
-
 @Entity
-@Table(name="CLIENTE")
+@Table(name = "CLIENTE")
 public class Cliente {
-	
+
 	@Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nome;
 	private String cpf;
@@ -27,28 +25,10 @@ public class Cliente {
 	private String senha;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Cartao cartao;
-	@OneToOne(cascade = CascadeType.PERSIST)
-	private Carrinho carrinho;
-	
-
-
-	public Carrinho getCarrinho() {
-		return carrinho;
-	}
-
-
-
-	public void setCarrinho(Carrinho carrinho) {
-		this.carrinho = carrinho;
-	}
-
-
 
 	public Cliente() {
 		super();
 	}
-	
-	
 
 	public Cliente(Long id, String nome, String cpf, Endereco endereco, String email, String senha, Cartao cartao) {
 		super();
@@ -69,42 +49,52 @@ public class Cliente {
 		this.email = clienteOp.get().getEmail();
 		this.senha = clienteOp.get().getSenha();
 		this.cartao = clienteOp.get().getCartao();
-		this.carrinho = clienteOp.get().getCarrinho();
 	}
 
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	public String getCpf() {
 		return cpf;
 	}
+
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+
 	public Endereco getEndereco() {
 		return endereco;
 	}
+
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getSenha() {
 		return senha;
 	}
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
@@ -116,5 +106,5 @@ public class Cliente {
 	public void setCartao(Cartao cartao) {
 		this.cartao = cartao;
 	}
-	
+
 }

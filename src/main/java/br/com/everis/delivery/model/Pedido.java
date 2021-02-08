@@ -3,6 +3,7 @@ package br.com.everis.delivery.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -22,8 +23,8 @@ public class Pedido {
 	private Long id;
 	@ManyToOne
 	private Cliente cliente;
-	@ManyToMany
-	private List<Produto> produtos;
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	private List<Item> item;
 	private LocalDateTime data;
 	private Double valor;
 	@Enumerated(EnumType.STRING)
@@ -38,11 +39,11 @@ public class Pedido {
 		super();
 	}
 
-	public Pedido(Long id, Cliente cliente, List<Produto> produtos, LocalDateTime data, Double valor) {
+	public Pedido(Long id, Cliente cliente, List<Item> item, LocalDateTime data, Double valor) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
-		this.produtos = produtos;
+		this.item = item;
 		this.data = data;
 		this.valor = valor;
 	}
@@ -80,12 +81,12 @@ public class Pedido {
 		this.id = id;
 	}
 	
-	public List<Produto> getProdutos() {
-		return produtos;
+	public List<Item> getProdutos() {
+		return item;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setItem(List<Item> item) {
+		this.item = item;
 	}
 
 	public Pagamento getPagamento() {
