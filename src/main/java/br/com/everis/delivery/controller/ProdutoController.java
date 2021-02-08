@@ -1,10 +1,12 @@
 package br.com.everis.delivery.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.everis.delivery.controller.dto.ProdutoDto;
 import br.com.everis.delivery.model.Produto;
@@ -45,9 +48,10 @@ public class ProdutoController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public String delete(@PathVariable("id") long id) {
+	public ResponseEntity<URI> delete(@PathVariable("id") long id, UriComponentsBuilder uriBuilder) {
 		Produto prod = new Produto(produtoRepository.findById(id));
 		produtoRepository.delete(prod);
-		return "deletado";
+		URI uri = uriBuilder.path("/{id}").buildAndExpand(id).toUri();
+		return ResponseEntity.ok(uri);
 	}
 }

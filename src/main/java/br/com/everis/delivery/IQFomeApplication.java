@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class IFomeApplication {
+public class IQFomeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(IFomeApplication.class, args);
+		SpringApplication.run(IQFomeApplication.class, args);
 	}
 
 }

@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
+
 @Entity
 @Table(name = "CLIENTE")
 public class Cliente {
@@ -17,11 +19,14 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@NotNull
 	private String nome;
 	private String cpf;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Endereco endereco;
+	@NotNull
 	private String email;
+	@NotNull
 	private String senha;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Cartao cartao;

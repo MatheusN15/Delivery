@@ -1,15 +1,19 @@
 package br.com.everis.delivery.controller;
 
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.everis.delivery.controller.dto.PedidoDto;
 import br.com.everis.delivery.model.Cliente;
@@ -44,7 +48,7 @@ public class PedidoController {
 	}
 
 	@PostMapping(value = "/{id}")
-	public Pedido comprar(@PathVariable("id") long id, @RequestBody PedidoDto pedidodto) {
+	public ResponseEntity<Pedido> comprar(@PathVariable("id") long id, @RequestBody PedidoDto pedidodto, UriComponentsBuilder uriBuilder) {
 		pedidodto.setData(LocalDateTime.now());
 		Cliente cliente = new Cliente(clienteService.findById(id));
 		Pedido pedido = new Pedido(cliente);
@@ -74,7 +78,8 @@ public class PedidoController {
 
 		}
 		pedido.setValor(valor);
-		return pedidoRepository.save(pedido);
+		URI uri = uriBuilder.path("/{id}").buildAndExpand(cliente.getId()).toUri();
+		return ResponseEntity.created(uri).body(pedidoRepository.save(pedido));
 
 	}
 

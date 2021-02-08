@@ -5,15 +5,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.sun.istack.NotNull;
+
 @Entity
 public class Endereco {
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.SEQUENCE)
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
+	@NotNull
 	private String rua;
+	@NotNull
 	private String numero;
+	@NotNull
 	private String cidade;
+	@NotNull
 	private String cep;
 	
 

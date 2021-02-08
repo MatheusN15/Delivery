@@ -22,6 +22,7 @@ import br.com.everis.delivery.model.Cartao;
 import br.com.everis.delivery.model.Cliente;
 import br.com.everis.delivery.repository.CartaoRepository;
 import br.com.everis.delivery.repository.ClienteRepository;
+import br.com.everis.delivery.repository.EnderecoRepository;
 
 @RestController
 @RequestMapping("/cliente")
@@ -31,6 +32,8 @@ public class ClienteController {
 	ClienteRepository clienteRepository;
 	@Autowired
 	CartaoRepository cartaoRepository;
+	@Autowired
+	EnderecoRepository enderecoRepository;
 
 	@GetMapping
 	public List<Cliente> listar() {
@@ -60,10 +63,13 @@ public class ClienteController {
 	}
 
 	@PutMapping("/{id}")
-	public Cliente atualiza(@RequestBody ClienteDto clientedto, @PathVariable("id") long id) {
+	public ResponseEntity<Cliente> atualiza(@RequestBody ClienteDto clientedto, @PathVariable("id") long id, UriComponentsBuilder uriBuilder) {
 		Cliente cliente = new Cliente(clienteRepository.findById(id));
-		clientedto.setCartao(cliente.getCartao());
-		return clienteRepository.save(clientedto.atualiza(cliente));
+		cliente.setEndereco(clientedto.getEndereco());
+		clientedto.atualiza(cliente);
+		enderecoRepository.save(cliente.getEndereco());
+		URI uri = uriBuilder.path("/{id}").buildAndExpand(cliente.getId()).toUri();
+		return ((BodyBuilder) ResponseEntity.ok(uri)).body(clienteRepository.save(cliente));
 	}
 
 	@GetMapping("/{id}")
@@ -78,11 +84,12 @@ public class ClienteController {
 
 //Crud Cartao	
 	@PostMapping("/{id}/cartao")
-	public Cliente newCartao(@PathVariable("id") long id, @RequestBody Cartao cartao) {
+	public ResponseEntity<Cliente> newCartao(@PathVariable("id") long id, @RequestBody Cartao cartao, UriComponentsBuilder uriBuilder) {
 		Cliente cliente = new Cliente(clienteRepository.findById(id));
 
 		cliente.setCartao(cartaoRepository.save(cartao));
-		return clienteRepository.save(cliente);
+		URI uri = uriBuilder.path("/{id}").buildAndExpand(cliente.getId()).toUri();
+		return ResponseEntity.created(uri).body(clienteRepository.save(cliente));
 	}
 
 	@PutMapping("/{id}/cartao")
@@ -93,12 +100,17 @@ public class ClienteController {
 	}
 
 	@DeleteMapping("/{id}/cartao")
-	public void apagaCartao(@PathVariable("id") long id) {
+	public ResponseEntity<URI> apagaCartao(@PathVariable("id") long id, UriComponentsBuilder uriBuilder) {
 		Cliente cliente = new Cliente(clienteRepository.findById(id));
 		Cartao cart = new Cartao(cartaoRepository.findById(cliente.getCartao().getId()));
 		Cartao cartao = new Cartao();
 		cartaoRepository.save(cartao.atualiza(cart));
-		// cartaoRepository.delete(cliente.getCartao());
+		URI uri = uriBuilder.path("/{id}").buildAndExpand(id).toUri();
+		return ResponseEntity.ok(uri);
 	}
 
+	@GetMapping("/{id}/cartao")
+	public Cartao showCartao(@PathVariable("id") long id) {
+		return new Cliente(clienteRepository.findById(id)).getCartao();
+	}
 }
